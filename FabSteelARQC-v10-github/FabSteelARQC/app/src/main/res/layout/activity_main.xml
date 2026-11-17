@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- چیدمان مطابق طرح UI-reference.png (افقی). جهت چیدمان LTR ثابت است تا جای دکمه‌ها مثل طرح بماند. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:layoutDirection="ltr">
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/glView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- علامت + مرکز صفحه -->
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_crosshair"
+        android:importantForAccessibility="no" />
+
+    <!-- بالا وسط: بنر -->
+    <LinearLayout
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_btn3d"
+        android:gravity="center"
+        android:minWidth="230dp"
+        android:orientation="vertical"
+        android:paddingStart="22dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="22dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="FabSteel"
+            android:textColor="@color/btn_text"
+            android:textSize="30sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AR Inspection System"
+            android:textColor="@color/btn_text"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- بالا راست: لوگو (هنگام مغایرت چشمک می‌زند) -->
+    <ImageView
+        android:id="@+id/logoTop"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="6dp"
+        android:background="@drawable/bg_logo_ring"
+        android:padding="4dp"
+        android:src="@drawable/fabsteel_logo"
+        android:contentDescription="FabSteel" />
+
+    <!-- ستون چپ -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+
+        <!-- آپلود خروجی تکلا -->
+        <LinearLayout
+            android:id="@+id/btnUpload"
+            android:layout_width="240dp"
+            android:layout_height="58dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Tekla\nUpload IFC"
+                android:textColor="@color/btn_text"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@android:drawable/ic_menu_upload"
+                android:tint="@color/icon_tint"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+
+        <!-- وضعیت Tracking -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/tvTrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tracking… 0%"
+                android:textColor="@color/ok_green"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvBars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="▁▁▁▁"
+                android:textColor="@color/ok_green"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- دقت اجزا -->
+        <LinearLayout
+            android:id="@+id/cardTolMember"
+            android:layout_width="240dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="دقت اجزا (بال، جان، اتصالات)"
+                    android:textColor="@color/btn_text"
+                    android:textDirection="rtl"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTolMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="5 mm"
+                    android:textColor="@color/value_yellow"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="✓"
+                android:textColor="@color/ok_green"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- دقت سوراخ‌کاری -->
+        <LinearLayout
+            android:id="@+id/cardTolHole"
+            android:layout_width="240dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="دقت سوراخ کاری"
+                    android:textColor="@color/btn_text"
+                    android:textDirection="rtl"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTolHole"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="3 mm"
+                    android:textColor="@color/value_yellow"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="✓"
+                android:textColor="@color/ok_green"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- تنظیمات / گزارش / راهنما -->
+        <LinearLayout
+            android:id="@+id/btnSettings"
+            android:layout_width="124dp"
+            android:layout_height="34dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@android:drawable/ic_menu_preferences"
+                android:tint="@color/icon_tint"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="تنظیمات"
+                android:textColor="@color/btn_text"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnReport"
+            android:layout_width="124dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@android:drawable/ic_menu_agenda"
+                android:tint="@color/icon_tint"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="گزارش"
+                android:textColor="@color/btn_text"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnHelp"
+            android:layout_width="124dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@android:drawable/ic_menu_help"
+                android:tint="@color/icon_tint"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="راهنما"
+                android:textColor="@color/btn_text"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- دوربین و گالری -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnCamera"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_round_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="14dp"
+                android:src="@android:drawable/ic_menu_camera"
+                android:tint="@color/icon_tint"
+                android:contentDescription="عکس QC" />
+
+            <ImageView
+                android:id="@+id/btnGallery"
+                android:layout_width="48dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_btn3d"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="9dp"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:tint="@color/icon_tint"
+                android:contentDescription="گالری" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- پنل مغایرت (سمت راست، زیر لوگو) -->
+    <LinearLayout
+        android:id="@+id/panelAlert"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_alert"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/logoMini"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/fabsteel_logo"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="⚠ مغایرت در قطعه!"
+                android:textColor="@color/alert_red"
+                android:textDirection="rtl"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="end"
+            android:text="اختلاف مدل و قطعه:"
+            android:textColor="@color/btn_text"
+            android:textDirection="rtl"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAlertDev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0.0 mm"
+            android:textColor="@color/alert_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAlertNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="دقت حسگر عمق محدود است؛ تلرانس مؤثر بزرگ‌تر از مقدار تنظیم‌شده است"
+            android:textColor="@color/btn_text"
+            android:textDirection="rtl"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="end"
+            android:text="🔊 هشدار صوتی فعال شد"
+            android:textColor="@color/alert_red"
+            android:textDirection="rtl"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- پایین راست: همخوانی -->
+    <LinearLayout
+        android:id="@+id/panelOk"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_ok"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvMatchPct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textColor="@color/ok_green"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="همخوانی مدل و قطعه"
+                android:textColor="@color/btn_text"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressMatch"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="4dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_green" />
+    </LinearLayout>
+
+    <!-- پایین وسط: Fix و فلش‌ها -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnPrev"
+            android:layout_width="52dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="«"
+            android:textColor="@color/btn_text"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/btnFix"
+            android:layout_width="210dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✔"
+                android:textColor="@color/btn_text"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tvFix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Fix"
+                android:textColor="@color/btn_text"
+                android:textSize="38sp"
+                android:textStyle="bold|italic" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnNext"
+            android:layout_width="52dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="»"
+            android:textColor="@color/btn_text"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- راهنمای کوتاه بالای دکمه Fix -->
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/bg_card"
+        android:maxWidth="360dp"
+        android:paddingStart="12dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/btn_text"
+        android:textDirection="rtl"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <!-- نوار ابزار (مثل فیلم مرجع): برش، شفافیت، متر -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="216dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btnToolClip"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="✂"
+            android:textColor="@color/btn_text"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/btnToolOpacity"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="◐"
+            android:textColor="@color/btn_text"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/btnToolMeasure"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_btn3d"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="📏"
+            android:textColor="@color/btn_text"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <!-- پنل ابزار (بالای وسط، زیر بنر) -->
+    <LinearLayout
+        android:id="@+id/toolPanel"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvToolTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/btn_text"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnToolClose"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="✕"
+                android:textColor="@color/alert_red"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekTool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:max="100"
+            android:progress="100" />
+
+        <LinearLayout
+            android:id="@+id/rowAxis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnAxX"
+                android:layout_width="54dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_btn3d"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="X"
+                android:textColor="@color/btn_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnAxY"
+                android:layout_width="54dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_btn3d"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Y ↑"
+                android:textColor="@color/btn_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnAxZ"
+                android:layout_width="54dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_btn3d"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Z"
+                android:textColor="@color/btn_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnFlip"
+                android:layout_width="54dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_btn3d"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="⇄"
+                android:textColor="@color/btn_text"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowMeasure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvMeasure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="دو نقطه را لمس کنید"
+                android:textColor="@color/value_yellow"
+                android:textDirection="rtl"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnMeasureClear"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_btn3d"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="پاک کردن"
+                android:textColor="@color/btn_text"
+                android:textDirection="rtl"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- نوار بارگذاری -->
+    <LinearLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC000000"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="64dp"
+            android:layout_height="64dp" />
+
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@android:color/white"
+            android:textDirection="rtl"
+            android:textSize="20sp" />
+    </LinearLayout>
+</FrameLayout>
